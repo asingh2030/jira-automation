@@ -35,24 +35,25 @@ public class MyJiraClient {
         this.restClient = getJiraRestClient();
     }
 
-    public static void test() throws IOException {
+    public static void test(String projectKey, Long issueType, String issueDesc) throws IOException {
 
         MyJiraClient myJiraClient = new MyJiraClient(USER_NAME, PASS, JIRA_URL);
-        final String issueKey = myJiraClient.createIssue("JEA", 10001L, "Issue created for test");
-        myJiraClient.updateIssueDescription(issueKey, "This is description from my Jira Client");
-        Issue issue = myJiraClient.getIssue(issueKey);
-        System.out.println(issue.getDescription());
-
-        myJiraClient.voteForAnIssue(issue);
-
-        System.out.println(myJiraClient.getTotalVotesCount(issueKey));
-
-        myJiraClient.addComment(issue, "This is comment from my Jira Client");
-
-        List<Comment> comments = myJiraClient.getAllComments(issueKey);
-        comments.forEach(c -> System.out.println(c.getBody()));
-
-        myJiraClient.deleteIssue(issueKey, true);
+        final String issueKey = myJiraClient.createIssue(projectKey, issueType, issueDesc);
+        System.out.println("Issue created - "+issueKey);
+//        myJiraClient.updateIssueDescription(issueKey, "This is description from my Jira Client");
+//        Issue issue = myJiraClient.getIssue(issueKey);
+//        System.out.println(issue.getDescription());
+//
+//        myJiraClient.voteForAnIssue(issue);
+//
+//        System.out.println(myJiraClient.getTotalVotesCount(issueKey));
+//
+//        myJiraClient.addComment(issue, "This is comment from my Jira Client");
+//
+//        List<Comment> comments = myJiraClient.getAllComments(issueKey);
+//        comments.forEach(c -> System.out.println(c.getBody()));
+//
+//        myJiraClient.deleteIssue(issueKey, true);
 
         myJiraClient.restClient.close();
     }
